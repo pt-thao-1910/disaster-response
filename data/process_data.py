@@ -18,7 +18,7 @@ def load_data(messages_filepath, categories_filepath):
     
 def clean_data(df):
     '''
-    
+    Clean data in the dataframe df
     '''
     categories = df["categories"].str.split(";", expand=True)
     row = categories.iloc[0, :]
@@ -38,6 +38,9 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filepath):
+    '''
+    Save dataframe to a table in the database_path.
+    '''
     engine = create_engine('sqlite:///{}'.format(database_filepath))
     df.to_sql("messages_and_categories", engine, index=False, if_exists="replace")
 
