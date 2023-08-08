@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-import re
+import string
 import nltk
 import pickle
 from nltk.tokenize import word_tokenize
