@@ -4,6 +4,23 @@
 This is a project which aims to classify messages during disaster times into 36 category, for example "food" or "medical-help". 
 Using this classification, I hope that we can reach out and provide better help to people when natural disasters occur.
 
+### File Structure
+- Root directory
+    - app
+        - templates
+            - go.html
+            - master.html
+        - run.py
+    - data
+        - DisasterResponse.db
+        - disaster_categories.csv
+        - disaster_messages.csv
+        - process_data.py
+    - models
+        - classifier.pkl
+        - train.classifier.py
+    - README.md
+
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
