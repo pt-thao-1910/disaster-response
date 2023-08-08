@@ -6,6 +6,7 @@ import pickle
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+from sklearn.model_selection import GridSearchCV
 from sqlalchemy import create_engine
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
@@ -54,7 +55,7 @@ def build_model():
     Build pipeline to tokenize, transform and train text data.
     Best model was chosen after doing GridSearchCV on max_features and ngram_range of CounterVectorizer.
     '''
-    vect = CountVectorizer(tokenizer=tokenize, max_features=3000, ngram_range=(1,2))
+    vect = CountVectorizer(tokenizer=tokenize)
     tfidf = TfidfTransformer()
     clf = MultiOutputClassifier(LogisticRegression(random_state=0))
     
@@ -64,7 +65,14 @@ def build_model():
         ("clf", clf)
     ])
     
-    return pipeline
+    param_grid = {
+    'vect__max_features': [3000, 5000],
+    'vect__ngram_range': [(1,1), (1,2)]
+    }
+
+    # Instantiate GridSearchCV
+    grid_search = GridSearchCV(pipeline, param_grid, cv=3)
+    return grid_search
 
 def evaluate_model(model, X_test, Y_test, category_names):
     '''
