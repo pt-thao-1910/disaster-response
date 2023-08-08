@@ -35,6 +35,8 @@ def clean_data(df):
     df = pd.concat([df, categories], axis=1)
     # drop duplicated rows
     df = df.drop_duplicates()
+    # drop rows with target values of non-binary type
+    df = df[df["related"]<=1]
     return df
 
 def save_data(df, database_filepath):
