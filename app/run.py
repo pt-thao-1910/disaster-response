@@ -52,10 +52,11 @@ def index():
     df["cleaned_message"] = df["message"].map(clean_text)
     w_list = " ".join(df["cleaned_message"]).split(" ")
     w_list = list(filter(lambda a: a != "", w_list))
-    
+
+    # First get the top 40 keywords and remove stopwords from the list
+    # Then get 5 keywords with highest number of occurrences
     top40_kw = [Counter(w_list).most_common(i+1)[i][0] for i in range(40)]
     top40_kw_cnt = [Counter(w_list).most_common(i+1)[i][1] for i in range(40)]
-    
     top5_kw = [w for w in top40_kw if w not in stopwords.words('english')][:5]
     top5_kw_cnt = [Counter(w_list)[w] for w in top5_kw]
 
@@ -67,8 +68,8 @@ def index():
        
     top5_category = [Counter(category_message_cnt).most_common(i+1)[i][0] for i in range(5)]
     top5_category_cnt = [Counter(category_message_cnt).most_common(i+1)[i][1] for i in range(5)]
+    
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
