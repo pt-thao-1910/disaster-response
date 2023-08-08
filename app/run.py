@@ -67,8 +67,8 @@ def index():
        
     top5_category = [Counter(category_message_cnt).most_common(i+1)[i][0] for i in range(5)]
     top5_category_cnt = [Counter(category_message_cnt).most_common(i+1)[i][1] for i in range(5)]
-    
     # create visuals
+    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -129,7 +129,7 @@ def go():
     classification_labels = np.insert(classification_labels, 9, 0) 
     classification_results = dict(zip(df.columns[4:], classification_labels))
 
-    # Render the go.html
+    # This will render the go.html Please see that file. 
     return render_template(
         'go.html',
         query=query,
